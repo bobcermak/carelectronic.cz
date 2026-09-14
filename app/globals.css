@@ -1,0 +1,330 @@
+@import "tailwindcss";
+
+@theme {
+  /*Font family — jediné písmo projektu*/
+  --font-montserrat: var(--font-montserrat-next);
+  /*Font sizes*/
+  --text-eyebrow: 0.75rem; /* 12px, letter-spacing 0.2em, uppercase */
+  --text-ui: 0.875rem; /* 14px, lowercase — navigace a labely */
+  --text-body: clamp(1.0625rem, 1.3vw, 1.25rem); /* 17 → 20px */
+  --text-sub: clamp(1.25rem, 1.9vw, 1.5rem);
+  --text-title: clamp(1.75rem, 3vw, 2.5rem);
+  --text-heading: clamp(2.25rem, 4.2vw, 3.25rem);
+  --text-display: clamp(2.75rem, 5.6vw, 4.5rem); /* H1 */
+  /*Colors — společný základ obou značek*/
+  --color-ink: #1e1712; /* text, tmavé sekce, znak na světlém */
+  --color-ink-80: #3a2f26; /* navigační odkazy, sekundární text na krému */
+  --color-mokka: #7a6a5c; /* tlumený text, druhá polovina wordmarku */
+  --color-latte: #c9b9a6; /* text na tmavém pozadí */
+  --color-sand: #c6b9ab; /* popisky statů na tmavém */
+  --color-bone: #cbbfb0; /* výchozí stav omInk — nedopsaný text */
+  --color-cream: #f7f1e9; /* pozadí celého webu */
+  --color-white: #ffffff;
+  /*Alpha varianty, které projekt skutečně používá — další nevymýšlej*/
+  --color-line: rgba(30, 23, 18, 0.08); /* linky, tracky, okraje karet */
+  --color-pill: rgba(255, 255, 255, 0.88); /* nav pill */
+  --color-line-dark: rgba(247, 241, 233, 0.22); /* dělící linka na tmavém */
+  /*CarElectronic — oranžová. Text na oranžové je vždy ink, nikdy bílý.*/
+  --color-accent: #ff6a38;
+  /*DPF Renovace — zelená. Na zelené je text bílý.*/
+  --color-dpf: #0e8f63;
+  --color-dpf-dark: #0a6b4a;
+  --color-dpf-bright: #2fcb93; /* jen jako akcent na tmavém dpf-ink */
+  --color-dpf-ink: #0a1a14;
+  /*Radius*/
+  --radius-block: 15px; /* velké bloky a fotky */
+  --radius-pill: 999px;
+  /*Rytmus sekcí*/
+  --spacing-section: clamp(110px, 13vw, 170px);
+  /*Stín — jediný, jen pro plovoucí panely (modál, nav pill, cookie lišta)*/
+  --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 18px 48px rgba(30, 23, 18, 0.14);
+  /*Easing kánonu*/
+  --ease-om: cubic-bezier(0.16, 0.84, 0.24, 1);
+  /*Breakpoints*/
+  --breakpoint-sphone: 361px;
+  --breakpoint-phone: 401px;
+  --breakpoint-xphone: 541px;
+  --breakpoint-stablet: 641px;
+  --breakpoint-tablet: 761px;
+  --breakpoint-slaptop: 961px;
+  --breakpoint-mlaptop: 1024px;
+  --breakpoint-laptop: 1281px;
+  --breakpoint-sdesktop: 1401px;
+  --breakpoint-desktop: 1537px;
+  --breakpoint-xdesktop: 1761px;
+  /*Widths*/
+  --width-container: 90vw;
+  --width-container: 90svw;
+  --width-content: 80vw;
+  --width-content: 80svw;
+  --width-text: 1080px;
+}
+
+html {
+  font-weight: 400;
+  font-size: 100%;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  background-color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: none;
+}
+
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.img-responsive,
+.iframe-responsive {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.svg-responsive {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes omReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes omGrowX {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes omSlideX {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--om-travel, 0px)), 0, 0);
+  }
+}
+
+@keyframes omInk {
+  from {
+    color: #cbbfb0;
+  }
+  to {
+    color: #1e1712;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatDown {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+
+@keyframes navDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@layer components {
+  p {
+    @apply text-body font-normal text-ink-80 text-left;
+  }
+
+  h1 {
+    @apply text-display font-medium leading-[1.05] tracking-[-0.03em] text-ink text-left;
+  }
+
+  h2 {
+    @apply text-heading font-medium leading-[1.1] tracking-[-0.03em] text-ink text-left;
+  }
+
+  h3 {
+    @apply text-title font-medium leading-[1.15] tracking-[-0.02em] text-ink text-left;
+  }
+
+  h4,
+  h5,
+  h6 {
+    @apply text-sub font-medium leading-snug tracking-[-0.01em] text-ink text-left;
+  }
+
+  ul,
+  ol {
+    @apply list-outside;
+  }
+
+  li {
+    @apply text-body font-normal text-ink-80 m-0 p-0 list-none;
+  }
+
+  figure {
+    @apply m-0 p-0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  a {
+    overflow-wrap: break-word;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.2em] text-accent;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 30px;
+    height: 1px;
+    background-color: currentColor;
+    flex: none;
+  }
+
+  .wordmark {
+    @apply font-semibold tracking-[-0.02em] text-ink lowercase;
+  }
+
+  .wordmark span {
+    @apply font-normal text-mokka;
+  }
+}
+
+@layer utilities {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      [data-reveal="y"] {
+        animation: omReveal 0.9s var(--ease-om) both;
+        animation-timeline: view();
+        animation-range: entry 8% cover 30%;
+      }
+
+      [data-om-progress] > span {
+        animation: omGrowX linear both;
+        animation-timeline: scroll(root block);
+      }
+
+      [data-om-track] {
+        animation: omSlideX linear both;
+        animation-range: contain 0% contain 100%;
+      }
+
+      [data-om-track-bar] {
+        animation: omGrowX linear both;
+        animation-range: contain 0% contain 100%;
+      }
+
+      [data-om-ink] {
+        animation: omInk linear both;
+        animation-range: entry 20% cover 45%;
+      }
+    }
+  }
+
+  [data-om-track] {
+    width: max-content;
+    overflow-x: hidden !important;
+    scroll-snap-type: none !important;
+  }
+}
+
+@keyframes loadSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
