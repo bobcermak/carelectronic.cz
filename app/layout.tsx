@@ -1,4 +1,4 @@
-import { PageWrapper, ScrollProgress } from "@/components";
+import { PageWrapper, ScrollProgress, ScrollRails } from "@/components";
 import { Montserrat } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 import ConsentProvider from "@/contexts/ConsentContext";
@@ -33,7 +33,6 @@ export const metadata: Metadata = {
     "kódování klíčů",
     "oprava airbagů",
     "přístrojové panely",
-    "renovace DPF filtru",
     "CarElectronic",
     "Viktor Šeda",
   ],
@@ -63,7 +62,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f7f1e9",
+  themeColor: "#1d1d1b",
 };
 export default function RootLayout({
   children,
@@ -81,6 +80,7 @@ export default function RootLayout({
       <body className="font-montserrat">
         <ConsentProvider>
           <ScrollProgress/>
+          <ScrollRails/>
           <PageWrapper>
             <main>{children}</main>
           </PageWrapper>

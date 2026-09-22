@@ -5,11 +5,9 @@ import type { FC, MouseEvent, ReactNode } from "react";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
 
-type ButtonVariant = "primary" | "secondary" | "dark" | "light";
-type ButtonSize = "sm" | "md" | "lg";
+type ButtonVariant = "primary" | "outline";
 type ButtonSharedProps = {
   variant?: ButtonVariant;
-  size?: ButtonSize;
   isArrow?: boolean;
   ariaLabel: string;
   className?: string;
@@ -32,26 +30,16 @@ type NativeButtonProps = ButtonSharedProps & {
 type ButtonProps = LinkButtonProps | NativeButtonProps;
 const EXTERNAL_HREF = /^https?:\/\//i;
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
-  primary: "bg-accent text-ink hover:bg-ink hover:text-cream active:bg-ink active:text-cream",
-  secondary: "text-ink border border-line hover:bg-ink hover:text-cream active:bg-ink active:text-cream",
-  dark: "bg-ink text-cream hover:bg-accent hover:text-ink active:bg-accent active:text-ink",
-  light: "text-latte border border-line-dark hover:bg-cream hover:text-ink active:bg-cream active:text-ink",
+  primary: "gap-4.5 bg-accent py-2.25 pl-7.5 pr-2.25 text-white shadow-cta hover:bg-accent-text",
+  outline: "gap-4 border border-line-strong px-7.5 py-4.5 text-bone hover:border-bone",
 };
 const CIRCLE_STYLES: Record<ButtonVariant, string> = {
-  primary: "bg-ink text-cream",
-  secondary: "bg-ink text-cream",
-  dark: "bg-accent text-ink",
-  light: "bg-cream text-ink",
-};
-const SIZE_STYLES: Record<ButtonSize, { label: string; circle: string; icon: number }> = {
-  sm: { label: "text-ui px-5 py-2.5", circle: "size-9", icon: 15 },
-  md: { label: "text-ui px-7 py-3.5", circle: "size-12", icon: 17 },
-  lg: { label: "text-body px-8 py-4", circle: "size-14", icon: 19 },
+  primary: "bg-white text-accent",
+  outline: "border border-line-strong text-bone",
 };
 const Button: FC<ButtonProps> = (props) => {
   const {
     variant = "primary",
-    size = "md",
     isArrow = true,
     ariaLabel,
     className,
@@ -61,37 +49,34 @@ const Button: FC<ButtonProps> = (props) => {
     hover,
     children,
   } = props;
-  const dims = SIZE_STYLES[size];
   const showArrow = isArrow && !noStyle;
   const wrapperClass = twMerge(
-    noStyle ? "cursor-pointer" : "group inline-flex items-center cursor-pointer",
+    noStyle ? "cursor-pointer" : "group inline-flex cursor-pointer",
     !noStyle && (wFull ? "w-full" : "w-fit"),
     disabled ? "pointer-events-none cursor-not-allowed opacity-40" : "",
     hover,
     className
   );
-  const labelClass = twMerge(
-    "flex flex-col rounded-pill text-center font-medium lowercase",
+  const pillClass = twMerge(
+    "inline-flex items-center justify-center rounded-pill text-nav font-medium lowercase",
     "transition-[background-color,color,border-color] duration-200 ease-om",
-    dims.label,
     VARIANT_STYLES[variant],
-    wFull ? "flex-1" : ""
+    wFull ? "w-full" : ""
   );
   const circleClass = twMerge(
-    "grid shrink-0 place-items-center rounded-pill",
-    "transition-[translate,background-color,color] duration-200 ease-om",
+    "grid size-11 shrink-0 place-items-center rounded-pill",
+    "transition-[translate] duration-200 ease-om",
     "group-hover:-translate-x-0.5 group-active:-translate-x-0.5",
-    dims.circle,
     CIRCLE_STYLES[variant]
   );
   const content = noStyle ? (
     children
   ) : (
-    <span className={twMerge("flex items-center gap-2", wFull ? "w-full" : "")}>
-      <span className={labelClass}>{children}</span>
+    <span className={pillClass}>
+      <span className={wFull ? "flex-1 text-center" : ""}>{children}</span>
       {showArrow && (
         <span aria-hidden="true" className={circleClass}>
-          <ArrowUpRightIcon size={dims.icon} weight="light"/>
+          <ArrowUpRightIcon size={17} weight="light"/>
         </span>
       )}
     </span>

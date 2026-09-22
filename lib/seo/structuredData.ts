@@ -1,4 +1,4 @@
-import { ADDRESS_SHOP, BUSINESS_EMAIL, BUSINESS_FOUNDED, BUSINESS_ICO, BUSINESS_LEGAL_NAME, BUSINESS_OWNER, BUSINESS_PHONE, DPF_URL, FACEBOOK_URL, OPENING_HOURS } from "@/types/business";
+import { ADDRESS_SHOP, BUSINESS_EMAIL, BUSINESS_FOUNDED, BUSINESS_ICO, BUSINESS_LEGAL_NAME, BUSINESS_OWNER, BUSINESS_PHONE, FACEBOOK_URL, OPENING_HOURS } from "@/types/business";
 import { SERVICES } from "@/types/services";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_LANG, SITE_NAME, SITE_NAME_ALTS, SITE_URL } from "@/types/site";
 
@@ -50,7 +50,7 @@ export const businessSchema = () => ({
   openingHoursSpecification: openingHours(),
   currenciesAccepted: "CZK",
   knowsLanguage: SITE_LANG,
-  sameAs: [DPF_URL, FACEBOOK_URL].filter(Boolean),
+  sameAs: [FACEBOOK_URL].filter(Boolean),
   hasOfferCatalog: { "@id": `${SITE_URL}/#sluzby` },
 });
 export const ownerSchema = () => ({

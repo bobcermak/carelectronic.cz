@@ -1,153 +1,152 @@
-# CarElectronic + DPF Renovace — projektová pravidla
+# Designový soupis — aktuální stav (22. 9. 2026)
 
-Next.js 16 (App Router) + TypeScript + Tailwind v4. Dvě značky, jeden systém.
-**CarElectronic** = hlavní web v tomhle repozitáři (chiptuning, autoelektronika, měření na dynu,
-kontakt). **DPF Renovace** = samostatná micro-site na `dpfrenovace.cz`, stejná typografie a
-rozvržení, jiná akcentní barva a jiný znak.
+Skutečné hodnoty z kódu, ne původní záměr. Kde se to během práce změnilo, je to označené **změna**.
+Zdroj pravdy pro barvy a pravidla zůstává `CLAUDE.md`; tento soubor je přesný výpis velikostí, řezů a rozměrů.
 
-Obsah, struktura stránek a stav rozpracovanosti jsou v [CONTEXT.md](CONTEXT.md).
+---
 
-## Barvy — používej POUZE tyto tokeny
+## 1. Písmo
 
-Všechny žijí v `@theme` v [app/globals.css](app/globals.css). V komponentách se píšou jako
-Tailwind třídy (`text-ink`, `bg-cream`, `border-line`), **nikdy jako hex v JSX**. Výjimka jsou
-e-maily — v [components/emails/emailTheme.ts](components/emails/emailTheme.ts) musí být hexy inline.
+Jediné písmo **Montserrat**, řezy 300 / 400 / 500 / 600 / 700.
+Na rootu každé stránky: `font-variant-numeric: tabular-nums`.
 
-### Společný základ (obě značky)
-| Token | Hex | Použití |
-|---|---|---|
-| `ink` | `#1E1712` | text, tmavé sekce, znak na světlém |
-| `ink-80` | `#3A2F26` | navigační odkazy, sekundární text na krému |
-| `mokka` | `#7A6A5C` | tlumený text, druhá polovina wordmarku |
-| `latte` | `#C9B9A6` | text na tmavém pozadí |
-| `sand` | `#C6B9AB` | popisky statů na tmavém |
-| `bone` | `#CBBFB0` | výchozí stav `omInk` animace (nedopsaný text) |
-| `cream` | `#F7F1E9` | základní pozadí celého webu |
-| `white` | `#FFFFFF` | karty, modály, nav pill |
+## 2. Typografická stupnice
 
-Alpha varianty — jen tyhle tři, další neinventuj:
-`line` = `rgba(30,23,18,0.08)` (linky, tracky, okraje), `pill` = `rgba(255,255,255,0.88)`
-(nav pill), `line-dark` = `rgba(247,241,233,0.22)` (dělící linka na tmavém).
+| Prvek | Velikost | Weight | Letter-spacing | Line-height | Pozn. |
+|---|---|---|---|---|---|
+| H1 homepage | `88px` | **700** | `-0.035em` | 1.14 | uppercase |
+| H1 podstránky | `88px` | **700** | `-0.035em` | 1.14 | uppercase |
+| H1 konfigurátor (výsledek) | `clamp(26px, 3.8vw, 58px)` | 700 | `-0.035em` | 1 | uppercase, bílá |
+| H2 sekce | `64px` | **700** | `-0.035em` | 1.08–1.14 | uppercase |
+| H2 CTA blok | `88px` | 700 | `-0.035em` | 1.14 | uppercase |
+| H3 / krok | `clamp(24px, 4.3vh, 50px)` | 700 | `-0.04em` | 1.06 | uppercase |
+| Statement (omInk) | `clamp(24px, 3.2vw, 46px)` | 400 | `-0.025em` | 1.4 | |
+| Velké číslo v pozadí kroku | `clamp(96px, 17vh, 280px)` | 700 | `-0.05em` | 0.8 | `rgba(255,255,255,0.05)` |
+| Stat číslo | `clamp(44px, 4.8vw, 66px)` | 500 | `-0.045em` | 1 | |
+| Perex / body | `clamp(17px, 1.3vw, 20px)` | 400 | — | 1.6–1.85 | `#D8D5D1` |
+| Body v kroku | `clamp(14px, 1.9vh, 18px)` | 400 | — | 1.7 | |
+| Kratší odstavec | `17px` | 400 | — | 1.8 | |
+| Eyebrow | `12px` | 400 | `0.2em` | — | uppercase, **italic**, `#FF4136` |
+| Eyebrow v konfigurátoru | `12px` | 400 | `0.24em` | — | uppercase, italic |
+| Label / jednotka | `11px` | 400–500 | `0.24em` | — | uppercase, `#A8A5A0` |
+| Číslo výčtu `01` | `11px` | 500 | `0.14em` | — | `#55534F` / `#FF4136` |
+| Wordmark v navigaci | `18px` | 600 + 400 | `-0.03em` | — | |
+| Navigační odkazy | `16px` | 400 | — | — | lowercase |
+| Pilulka / chip | `13px` | 400 | — | — | |
+| Popisek statu | `13.5px` | 400 | — | — | **italic**, `#8A8782` |
 
-### CarElectronic — oranžová
-`accent` = `#FF6A38`. Nese: CTA tlačítka, progress bar, eyebrow labely, 30px linku před labelem,
-odkazy, `::selection`, znak. **Text na oranžové je vždy `ink`, nikdy bílý.**
+### Změny proti původnímu zadání
+- **Nadpisy jsou 700, ne 500.** H1 i H2 mají plný bold, protože 500 se na fotkách ztrácel.
+- **H1 je fixních `88px`**, ne `clamp(44px, 5.6vw, 84px)` — nadpisy měly na velkém monitoru kolísat příliš.
+- **Nadpisy jsou uppercase.** Původně mixed case.
+- **Eyebrow a popisky statů jsou italic.** Přidaný rys, který nebyl v původní specifikaci.
+- **Navigace je 16px**, ne 14px.
+- Stat čísla mají letter-spacing `-0.045em` (agresivnější než obecné `-0.04em`).
 
-### DPF Renovace — zelená
-`dpf` `#0E8F63` · `dpf-dark` `#0A6B4A` · `dpf-bright` `#2FCB93` (jen jako akcent na tmavém) ·
-`dpf-ink` `#0A1A14` (tmavé pozadí DPF místo `ink`).
-Na zelené `#0E8F63` je text **bílý** — na rozdíl od oranžové.
+---
 
-### Zakázané
-Žádné gradienty jako pozadí sekcí, žádné neonové duhy, žádná druhá akcentní barva navíc, žádné
-mixování oranžové a zelené na jedné stránce (výjimka: odkaz „DPF renovace“ v navigaci a patičce).
-Max 2 barvy pozadí na stránku: `cream` + `ink`.
+## 3. Barvy — skutečně používané
 
-## Typografie
-- Jediné písmo: **Montserrat** (300/400/500/600/700) přes `next/font/google`,
-  `font-variant-numeric: tabular-nums` na rootu. Žádný druhý font.
-- Velikosti jsou tokeny, ne libovolné hodnoty: `text-display` (H1), `text-heading` (H2),
-  `text-title`, `text-sub`, `text-body`, `text-ui` (14px, UI a labely), `text-eyebrow` (12px).
-- H1/H2: váha 500, `letter-spacing: -0.03em`. Výchozí styly nadpisů, odstavců a seznamů jsou
-  v `@layer components` — v JSX je neopakuj.
-- Eyebrow: třída `.eyebrow` (12px, `0.2em`, uppercase, akcent, 30×1px linka přes `::before`).
-- Navigace a UI labely: lowercase, `text-ui`.
-- Wordmark: `car` (600) + `electronic` (400, mokka) — komponenta
-  [Wordmark](components/layout/Wordmark.tsx). Stejný princip pro `dpf` + `renovace`.
+### Základ
+| Hex | Kde |
+|---|---|
+| `#1D1D1B` | pozadí body, běžné sekce, karty statů |
+| `#191917` | levý panel konfigurátoru, fotosekce pod překryvem |
+| `#232321` | karty a panely v konfigurátoru, vyvýšené bloky |
+| `#262624` | výplň drobných pilulek a tracků |
+| `#F2F0ED` | hlavní text na tmavém, znak v logu, světlé vložené sekce |
+| `#FFFFFF` | text na červené/zelené, čísla ve výsledku konfigurátoru, bordery |
+| `#D8D5D1` | delší odstavce, chipy |
+| `#B5B2AE` | navigační odkazy |
+| `#A8A5A0` | jednotky, metadata, labely |
+| `#8A8782` | druhá část wordmarku, popisky statů, „krok NN" |
+| `#55534F` | neaktivní číslo výčtu, výchozí stav `omInk` |
 
-## Rytmus a rozvržení
-- Sekce: `py-section` (= `clamp(110px, 13vw, 170px)`), hero a statementy `min-h-svh`.
-- Obsahová šířka: `w-container` (90vw) + `max-w-[1180px]`, u text-heavy `max-w-[var(--width-text)]`
-  (1080px).
-- Radius: `rounded-block` (15px) pro velké bloky a fotky, `rounded-pill` pro tlačítka a kolečka.
-- Layout vždy flex/grid + `gap`. Nikdy inline mezery ani per-element marginy u skupin.
-- Nové sekce stav na [Section](components/layout/Section.tsx) — drží rytmus eyebrow → nadpis →
-  lead → obsah a umí tmavou variantu (`dark`).
-- Ikonografie: jen tenké tažené šipky (Phosphor `weight="light"`, resp. `stroke-width: 1.5`,
-  `stroke-linecap: round`) a technické linie. **Žádné ilustrace kreslené v SVG, žádné emoji.**
-- Fotky: [ImageSlot](components/layout/ImageSlot.tsx) s českým `placeholder` popisem toho, co tam
-  patří. Dokud fotka není, drží se poměr stran — stocková náhrada se nesází nikdy.
+### CarElectronic
+- Plochy: `#E30B17` — CTA, progress, 30×1 px a 22×1 px linky, znak, výplně grafů, rámečky fotek u kroků (`1px solid #E30B17`).
+- Text: `#FF4136` — eyebrow, aktivní čísla, `+kW`, odkazy.
+- Text na červené: vždy `#FFFFFF`.
 
-## Animace — kánon projektu
+### DPF Renovace
+- Plochy `#0E8F63`, tmavší `#0A6B4A`, text na tmavém `#2FCB93`, zelený grafit `#14201C`.
 
-Vše běží na **scroll-driven CSS animacích** (`animation-timeline: view()` / `scroll()`),
-deklarovaných v `@layer utilities` v `globals.css` uvnitř
-`@supports (animation-timeline: view())` a `prefers-reduced-motion: no-preference`.
-**Nikdy nepiš JS scroll listenery na reveal** — žádný GSAP, žádný Lenis, žádný
-`requestAnimationFrame`.
+### Bordery
+`rgba(255,255,255,0.16)` základní · `0.22–0.45` na fotce/v hero · `0.38` výrazné dělení a obtahovaná CTA · `0.12` tracky · `1px solid #E30B17` u fotek kroků · nav pill `rgba(26,26,24,0.9)` + `rgba(255,255,255,0.18)`.
 
-Povolené keyframes (jména neměň): `omReveal`, `omGrowX`, `omSlideX`, `omInk`.
-Mikroanimace UI: `fadeIn`, `fadeOut`, `floatUp`, `floatDown`, `navDrop`, `menuIn`, `loadSweep`.
+### Chip border
+`1px solid rgba(227,11,23,0.55)` — červená ve 55 % pro pilulky s vlastnostmi. **Změna**: přidaná hodnota, v původním výčtu nebyla.
 
-### 1. Vertikální reveal (základ)
-`data-reveal="y"` na prvku. Stagger ve skupině se dělá **posunem `animation-range`** po 2–4 %
-inline stylem, ne `animation-delay`:
+### Ztmavovací překryvy fotek
+Jen černé gradienty:
+- hero podstránky: `linear-gradient(176deg, rgba(0,0,0,0.62), rgba(0,0,0,0.66) 45%, rgba(0,0,0,0.96))`
+- CTA / poptávkový blok: `linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.78))`
 
-```tsx
-<li data-reveal="y" style={{ animationRange: `entry ${8 + index * 4}% cover 30%` }}>
+---
+
+## 4. Rozměry a rytmus
+
+| Věc | Hodnota |
+|---|---|
+| Hero homepage | `100vh` |
+| Hero podstránek | **`60vh`**, bez perexu — jen eyebrow + H1 |
+| Padding hero podstránek | `clamp(120px, 15vh, 160px) 0 36px` |
+| Padding běžné sekce | `clamp(110px, 13vw, 170px) 0` |
+| Padding stažené druhé sekce | **`clamp(70px, 8vw, 110px) 0`** — aby byla vidět hned pod hero |
+| Obsahová šířka | `90vw` (hero, footer, sekce) / `max-width: 1080px` (text-heavy) |
+| Mezera mezi bloky v gridu | `clamp(80px, 10vw, 150px)` |
+| Gap ve dvousloupci kroku | `clamp(24px, 3vw, 64px)` |
+| Sticky sekce kroků | `250–300vh` s vnitřním `position: sticky; top: 0` |
+| Radius | `15px` velké bloky a fotky · `999px` pilulky a kolečka · `10px` znak v navigaci (34×34) · `59px` znak v exportu (200×200) |
+
+### Konfigurátor
+- `height: 100vh`, `overflow: hidden`, grid `72px / minmax(0,1fr) / 56px`.
+- Tělo: `minmax(0,1fr)` fotka + `minmax(340px, min(620px, 46%))` panel.
+- Levý panel vnitřně `minmax(52%, 1fr) auto`.
+- Bez navigace webu, bez patičky, bez progress lišt.
+
+---
+
+## 5. Tlačítka
+
+**Plné červené CTA** — `padding: 9px 9px 9px 30px`, `border-radius: 999px`, `background: #E30B17`, `box-shadow: 0 14px 38px rgba(227,11,23,0.4)`, `gap: 18px`, bílý text. Na konci **bílé kolečko se šipkou** — **změna**, přidané ve všech CTA napříč webem.
+
+**Obtahované CTA** — `padding: 18px 30px`, `border-radius: 999px`, `1px solid rgba(255,255,255,0.38)`, `gap: 16px`, bez stínu.
+
+DPF: stín `rgba(14,143,99,0.38)`.
+
+---
+
+## 6. Animace — co se skutečně používá
+
+Vše scroll-driven CSS v `@supports (animation-timeline: view())`. Žádné JS scroll listenery.
+
+Standardní reveal (na většině bloků):
 ```
-
-### 2. Horizontální scroll-hijack
-Vysoká sekce (250–300vh) s `view-timeline-name`, vnitřní `sticky top-0`, track `data-om-track`
-s `width: max-content`. Travel se počítá, nehádá:
-
+animation: omReveal .9s cubic-bezier(.16,.84,.24,1) both;
+animation-timeline: view();
+animation-range: entry 4% cover 26%;
 ```
---om-card: calc(min(420px, 74vw) + 64px);
---om-travel: max(0px, calc(N * var(--om-card) + (N-1) * 24px + 5vw - 95vw));
-```
+Stagger posunem rozsahu po 2–4 %: `entry 2%` → `4%` → `8%` → `12%` → `14%`.
 
-Ke každému tracku patří progress bar `data-om-track-bar` na stejné timeline — uživatel musí vidět,
-kolik zbývá. Track má `overflow-x: hidden` a zrušený snap, aby se scroll nekřížil.
+Dále: `omGrowX` (progress bary tracků), `omGrowY` (svislé lišty v okrajích — levá shora, pravá zdola, 3px, `rgba(255,255,255,0.12)` track, výplň `#E30B17`), `omInk` (statement, `--stmt` timeline, rozsahy `contain 2%→20%`, `16%→34%`, …), `omSlideX` + vypočtený `--om-travel` (horizontální hijack), `omDrive`/`omRoll`/`omDraw`/`omNeedle`/`omSmoke` (silueta auta, každé max jednou na stránku).
 
-### 3. Text ink-in
-`data-om-ink` na statement větě: `bone → ink` (na DPF `bone → dpf-ink`). Po slovech nebo řádcích,
-nikdy po jednotlivých literách.
+Mikrointerakce: `style-hover` posun max 2 px nebo změna pozadí/borderu, 150–250 ms, `cubic-bezier(.16,.84,.24,1)`.
 
-### 4. Progress rail
-[ScrollProgress](components/layout/ScrollProgress.tsx) — `data-om-progress`, 3px lišta nahoře,
-`omGrowX` na `scroll(root block)`, akcent na `line`.
+---
 
-### 5. Mikrointerakce
-Posun max 2 px nebo změna barvy. Trvání 150–250 ms, easing `ease-om`
-(`cubic-bezier(.16,.84,.24,1)`). Žádný bounce, žádné pružiny, žádné otáčení.
+## 7. Detaily, které se změnily během práce
 
-### Zakázané animace
-Parallax fotek pozadí, fade-in celé stránky po loadu, počítadla čísel, typewriter po literách,
-pulzující CTA, `scrollIntoView`.
+1. **Hero na podstránkách zkráceno na 60vh** a odstraněn perex — nadpis nese vše.
+2. **Druhá sekce má stažený horní padding**, aby byla viditelná hned pod hero.
+3. **Navigace má aktivní dot** — malá červená tečka pod odkazem aktuální stránky.
+4. **Blogový karusel** na homepage má kruhové ovladače (prev/next) místo linkových.
+5. **Fotky u kroků mají plný červený border** `1px solid #E30B17`, ne bílý poloprůhledný.
+6. **Loga přeexportována do `loga/`** v aktuálních barvách; oranžové sady `brand/` a `brand-dpf/` smazány.
+7. **Znak CarElectronic**: červená dlaždice, bílá kresba — oblouk `stroke-width: 7` + tři zakončovací pilulky, viewBox `0 0 64 64`.
+8. **Znak DPF**: kroužek `stroke-width: 5` + čtyři buňky substrátu, jedna tmavší `#0A6B4A` (zanesená).
 
-## Obsah a copy
-- Čeština, **vykání**, malá písmena v UI labelech, věcný tón montéra — ne marketing.
-- **Nevymýšlej čísla, ceny, hodnocení ani recenze.** Chybí-li data, `ImageSlot` placeholder,
-  `TODO` komentář s odkazem na `CONTEXT.md`, nebo dotaz.
-- Text, který se opakuje na víc místech, patří do `types/*.ts`, ne do JSX.
+---
 
-## Technická pravidla
-- **Server komponenty jsou výchozí.** `"use client"` jen tam, kde je stav, event handler nebo
-  `usePathname` — dnes: Navbar, Button, Modal, CookieBanner, ConsentControls, ConsentContext.
-- Komponenty jsou arrow funkce s `FC<Props>`, default export na konci souboru. Hooky na začátku
-  těla komponenty pod komentářem `//Hooks` — drží se toho zbytek kódu, neměň to.
-- Import alias `@/*` míří do kořene repozitáře (`tsconfig.json`).
-- Styly jen Tailwind třídy. Inline `style` je povolený **pouze** pro `animationRange`,
-  `aspectRatio` a `--om-*` proměnné.
-- Barvy, velikosti a mezery ber z tokenů. Libovolná hodnota (`text-[13px]`) jen když token
-  opravdu neexistuje.
-- **Firemní údaje se nepíšou ručně.** Adresa, telefon, e-mail, IČO a otevírací doba jsou
-  v [types/business.ts](types/business.ts), routy a popisky v [types/site.ts](types/site.ts).
-  Změna na jednom místě = změna všude, včetně sitemapy, JSON-LD i `llms.txt`.
-- SEO: metadata stránky přes [pageMetadata()](lib/seo/pageMeta.ts), strukturovaná data přes
-  [lib/seo/structuredData.ts](lib/seo/structuredData.ts) a `JsonLd`. Nová routa = zápis do
-  `SITE_ROUTES`, jinak `pageMetadata()` vyhodí chybu.
-- Poptávkové e-maily jdou přes Resend ([lib/services/resend](lib/services/resend)), šablona je
-  React Email v [components/emails/InquiryEmail.tsx](components/emails/InquiryEmail.tsx).
-- Loga: až přijdou finální soubory, patří do `public/images/brand` (varianty `logo-na-svetle`,
-  `logo-na-tmave`, `logo-mono-bile`, `logo-mono-cerne`, `znak-*`, `favicon.svg`). V navigaci se
-  znak kreslí inline SVG, wordmark textem.
-- Po zásahu do kódu spusť `npm run build` a `npm run lint`.
+## 8. Stále otevřené
 
-## Otevřené položky (nevyplňuj odhadem)
-- Potvrzení telefonního čísla a odkaz na Facebook — `types/business.ts`.
-- Data vozů do chiptuning kalkulačky (značka → model → motor → zisk).
-- Reálné protokoly z dyna pro sekce „jediné dyno v kraji“ a „naměřeno u nás“.
-- Reálné Google hodnocení a recenze.
-- Plátcovství DPH, záruka a splatnost pro obchodní podmínky.
-- Loga a fotky z dílny.
+Ceník od Šedy (`cenik()` v `data/vozy.js`) · WhatsApp číslo (`WHATSAPP`) · reálné Google hodnocení a recenze · Facebook odkaz · potvrzení telefonu `+420 603 513 643` · 17 fotografických slotů (hero, CTA, blog, autoelektronika) · destinace na mapě.

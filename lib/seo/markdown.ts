@@ -1,4 +1,4 @@
-import { ADDRESS_BILLING, ADDRESS_SHOP, BUSINESS_EMAIL, BUSINESS_FOUNDED, BUSINESS_ICO_DISPLAY, BUSINESS_OWNER, BUSINESS_PHONE, DPF_NAME, DPF_URL, OPENING_HOURS_LABEL, REPLY_WITHIN_HOURS, formatAddress, yearsInBusiness } from "@/types/business";
+import { ADDRESS_BILLING, ADDRESS_SHOP, BUSINESS_EMAIL, BUSINESS_FOUNDED, BUSINESS_ICO_DISPLAY, BUSINESS_OWNER, BUSINESS_PHONE, OPENING_HOURS_LABEL, REPLY_WITHIN_HOURS, formatAddress, yearsInBusiness } from "@/types/business";
 import { PROCESS_STEPS } from "@/types/inquiry";
 import { SERVICES } from "@/types/services";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_ROUTES, SITE_TAGLINE } from "@/types/site";
@@ -11,7 +11,6 @@ const contactBlock = () => [
   `- E-mail: ${BUSINESS_EMAIL}`,
   `- Otevírací doba: ${OPENING_HOURS_LABEL}`,
   `- Odpověď na poptávku: do ${REPLY_WITHIN_HOURS} hodin`,
-  `- Sesterský web: ${DPF_NAME} — ${DPF_URL}`,
 ];
 export const buildLlmsIndex = (): string =>
   [
@@ -64,7 +63,6 @@ const principlesSection = () => [
   "- Úprava výkonu se zapisuje do technického průkazu.",
   "- Cena, kterou řekneme, je konečná.",
   "- Na vůz s neřešenou závadou se mapa nenahrává.",
-  `- ${DPF_NAME}: renovace DPF filtru technologií BioFlash, záruka 100 000 km, protokol o průtoku.`,
   "",
 ];
 export const buildLlmsFull = (): string =>

@@ -54,7 +54,7 @@ const Modal: FC<ModalProps> = ({ open, onClose, labelledBy, accentClass, wide = 
   const leaving = phase === "leaving";
   return createPortal(
     <div
-      className={`fixed inset-0 z-100 grid place-items-center overflow-y-auto bg-ink/50 p-4 backdrop-blur-sm ${
+      className={`fixed inset-0 z-100 grid place-items-center overflow-y-auto bg-ink/70 p-4 backdrop-blur-sm ${
         leaving
           ? "pointer-events-none motion-safe:animate-[fadeOut_0.26s_ease-in_both]"
           : "motion-safe:animate-[fadeIn_0.2s_ease-out_both]"
@@ -68,7 +68,7 @@ const Modal: FC<ModalProps> = ({ open, onClose, labelledBy, accentClass, wide = 
         aria-labelledby={labelledBy}
         tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
-        className={`relative w-full overflow-hidden rounded-block border border-line bg-white p-7 text-center shadow-panel outline-none xphone:p-9 ${
+        className={`relative w-full overflow-hidden rounded-block border border-line bg-ink-soft p-7 text-center shadow-panel outline-none xphone:p-9 ${
           wide ? "my-8 max-w-3xl" : "max-w-[26rem]"
         } ${
           leaving
@@ -81,7 +81,7 @@ const Modal: FC<ModalProps> = ({ open, onClose, labelledBy, accentClass, wide = 
           type="button"
           onClick={onClose}
           aria-label="Zavřít"
-          className="absolute right-4 top-4 z-20 grid size-9 cursor-pointer place-items-center rounded-full border border-line bg-white text-mokka backdrop-blur-md transition-colors duration-200 hover:border-ink hover:text-ink active:border-ink active:text-ink"
+          className="absolute right-4 top-4 z-20 grid size-9 cursor-pointer place-items-center rounded-full border border-line bg-ink-soft text-stone backdrop-blur-md transition-colors duration-200 hover:border-bone hover:text-bone active:border-bone active:text-bone"
         >
           <XIcon size={18} weight="light"/>
         </button>

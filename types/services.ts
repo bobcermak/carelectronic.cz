@@ -1,5 +1,3 @@
-import { DPF_NAME, DPF_URL } from "./business";
-
 export type Service = {
   id: string;
   num: string;
@@ -29,13 +27,5 @@ export const SERVICES: Service[] = [
     title: "Měření na dynu",
     desc: "Jediná výkonová brzda v Libereckém kraji. Protokol s křivkou výkonu a momentu — i samostatně, bez úpravy vozu.",
     href: "/mereni",
-  },
-  {
-    id: "dpf",
-    num: "04",
-    title: DPF_NAME,
-    desc: "Renovace DPF filtru technologií BioFlash se zárukou 100 000 km a protokolem o průtoku. Sesterská značka.",
-    href: DPF_URL,
-    external: true,
   },
 ];

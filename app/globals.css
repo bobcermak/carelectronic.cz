@@ -3,43 +3,98 @@
 @theme {
   /*Font family — jediné písmo projektu*/
   --font-montserrat: var(--font-montserrat-next);
-  /*Font sizes*/
-  --text-eyebrow: 0.75rem; /* 12px, letter-spacing 0.2em, uppercase */
-  --text-ui: 0.875rem; /* 14px, lowercase — navigace a labely */
-  --text-body: clamp(1.0625rem, 1.3vw, 1.25rem); /* 17 → 20px */
-  --text-sub: clamp(1.25rem, 1.9vw, 1.5rem);
-  --text-title: clamp(1.75rem, 3vw, 2.5rem);
-  --text-heading: clamp(2.25rem, 4.2vw, 3.25rem);
-  --text-display: clamp(2.75rem, 5.6vw, 4.5rem); /* H1 */
-  /*Colors — společný základ obou značek*/
-  --color-ink: #1e1712; /* text, tmavé sekce, znak na světlém */
-  --color-ink-80: #3a2f26; /* navigační odkazy, sekundární text na krému */
-  --color-mokka: #7a6a5c; /* tlumený text, druhá polovina wordmarku */
-  --color-latte: #c9b9a6; /* text na tmavém pozadí */
-  --color-sand: #c6b9ab; /* popisky statů na tmavém */
-  --color-bone: #cbbfb0; /* výchozí stav omInk — nedopsaný text */
-  --color-cream: #f7f1e9; /* pozadí celého webu */
-  --color-white: #ffffff;
+  /*Font sizes — stupnice z designového soupisu.
+    H1 (88px) a H2 (64px) jsou v soupisu fixní; tady jsou jako clamp se stropem
+    na té hodnotě — na velkém monitoru tedy nekolísají (to byl důvod fixace)
+    a na telefonu nepřetečou.*/
+  --text-label: 0.6875rem; /* 11px — labely, jednotky, číslo výčtu */
+  --text-eyebrow: 0.75rem; /* 12px — eyebrow */
+  --text-chip: 0.8125rem; /* 13px — pilulky a chipy */
+  --text-caption: 0.84375rem; /* 13.5px — popisek statu, italic */
+  --text-nav: 1rem; /* 16px — navigační odkazy */
+  --text-note: 1.0625rem; /* 17px — kratší odstavec */
+  --text-wordmark: 1.125rem; /* 18px — wordmark v navigaci */
+  --text-body: clamp(1.0625rem, 1.3vw, 1.25rem); /* 17 → 20px — perex a body */
+  --text-body-step: clamp(0.875rem, 1.9vh, 1.125rem); /* 14 → 18px — body v kroku */
+  --text-statement: clamp(1.5rem, 3.2vw, 2.875rem); /* 24 → 46px — omInk statement */
+  --text-result: clamp(1.625rem, 3.8vw, 3.625rem); /* 26 → 58px — výsledek konfigurátoru */
+  --text-step: clamp(1.5rem, 4.3vh, 3.125rem); /* 24 → 50px — H3 / krok */
+  --text-figure: clamp(2.75rem, 4.8vw, 4.125rem); /* 44 → 66px — stat číslo */
+  --text-heading: clamp(2rem, 6.4vw, 4rem); /* → 64px — H2 sekce */
+  --text-display: clamp(2.5rem, 9vw, 5.5rem); /* → 88px — H1 a H2 v CTA bloku */
+  --text-ghost: clamp(6rem, 17vh, 17.5rem); /* 96 → 280px — číslo v pozadí kroku */
+
+  /*Letter-spacing*/
+  --tracking-display: -0.035em; /* H1, H2 */
+  --tracking-step: -0.04em; /* H3 / krok */
+  --tracking-figure: -0.045em; /* stat čísla */
+  --tracking-ghost: -0.05em; /* číslo v pozadí kroku */
+  --tracking-statement: -0.025em; /* statement */
+  --tracking-wordmark: -0.03em; /* wordmark */
+  --tracking-index: 0.14em; /* číslo výčtu 01 */
+  --tracking-eyebrow: 0.2em; /* eyebrow */
+  --tracking-label: 0.24em; /* labely, jednotky, eyebrow v konfigurátoru */
+
+  /*Line-height*/
+  --leading-display: 1.14; /* H1, H2 v CTA */
+  --leading-heading: 1.08; /* H2 sekce */
+  --leading-step: 1.06; /* H3 / krok */
+  --leading-statement: 1.4; /* statement */
+  --leading-note: 1.8; /* kratší odstavec */
+  --leading-ghost: 0.8; /* číslo v pozadí kroku */
+
+  /*Colors — tmavý základ*/
+  --color-ink: #1d1d1b; /* pozadí body, běžné sekce, karty statů */
+  --color-ink-deep: #191917; /* levý panel konfigurátoru, fotosekce pod překryvem */
+  --color-ink-soft: #232321; /* karty a panely, vyvýšené bloky */
+  --color-ink-chip: #262624; /* výplň drobných pilulek a tracků */
+  --color-bone: #f2f0ed; /* hlavní text na tmavém, znak v logu, světlé vložené sekce */
+  --color-white: #ffffff; /* text na červené, čísla ve výsledku, bordery */
+  --color-ash: #d8d5d1; /* delší odstavce, chipy */
+  --color-steel: #b5b2ae; /* navigační odkazy */
+  --color-slate: #a8a5a0; /* jednotky, metadata, labely */
+  --color-stone: #8a8782; /* druhá část wordmarku, popisky statů, krok NN */
+  --color-graphite: #55534f; /* neaktivní číslo výčtu, výchozí stav omInk */
+
+  /*CarElectronic — červená. Text na červené je vždy bílý.*/
+  --color-accent: #e30b17; /* plochy — CTA, progress, linky, znak, výplně grafů */
+  --color-accent-text: #ff4136; /* text — eyebrow, aktivní čísla, +kW, odkazy */
+
   /*Alpha varianty, které projekt skutečně používá — další nevymýšlej*/
-  --color-line: rgba(30, 23, 18, 0.08); /* linky, tracky, okraje karet */
-  --color-pill: rgba(255, 255, 255, 0.88); /* nav pill */
-  --color-line-dark: rgba(247, 241, 233, 0.22); /* dělící linka na tmavém */
-  /*CarElectronic — oranžová. Text na oranžové je vždy ink, nikdy bílý.*/
-  --color-accent: #ff6a38;
-  /*DPF Renovace — zelená. Na zelené je text bílý.*/
-  --color-dpf: #0e8f63;
-  --color-dpf-dark: #0a6b4a;
-  --color-dpf-bright: #2fcb93; /* jen jako akcent na tmavém dpf-ink */
-  --color-dpf-ink: #0a1a14;
+  --color-line: rgba(255, 255, 255, 0.16); /* základní okraj */
+  --color-line-track: rgba(255, 255, 255, 0.12); /* tracky progressu a lišt */
+  --color-line-photo: rgba(255, 255, 255, 0.22); /* okraj na fotce */
+  --color-line-strong: rgba(255, 255, 255, 0.38); /* výrazné dělení, obtahované CTA */
+  --color-line-hero: rgba(255, 255, 255, 0.45); /* okraj v hero */
+  --color-line-chip: rgba(227, 11, 23, 0.55); /* okraj pilulky s vlastností */
+  --color-pill: rgba(26, 26, 24, 0.9); /* nav pill */
+  --color-pill-line: rgba(255, 255, 255, 0.18); /* okraj nav pillu */
+  --color-ghost: rgba(255, 255, 255, 0.05); /* velké číslo v pozadí kroku */
+
+  /*Ztmavovací překryvy fotek — jen černé gradienty, žádné barevné*/
+  --overlay-hero: linear-gradient(176deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.66) 45%, rgba(0, 0, 0, 0.96));
+  --overlay-cta: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.55) 50%, rgba(0, 0, 0, 0.78));
+
   /*Radius*/
   --radius-block: 15px; /* velké bloky a fotky */
-  --radius-pill: 999px;
+  --radius-pill: 999px; /* tlačítka, pilulky, kolečka */
+  --radius-mark: 10px; /* znak v navigaci, 34×34 */
+  --radius-mark-lg: 59px; /* znak v exportu, 200×200 */
+
   /*Rytmus sekcí*/
-  --spacing-section: clamp(110px, 13vw, 170px);
-  /*Stín — jediný, jen pro plovoucí panely (modál, nav pill, cookie lišta)*/
-  --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 18px 48px rgba(30, 23, 18, 0.14);
+  --spacing-section: clamp(110px, 13vw, 170px); /* běžná sekce */
+  --spacing-section-tight: clamp(70px, 8vw, 110px); /* stažená druhá sekce pod hero */
+  --spacing-hero: clamp(120px, 15vh, 160px); /* horní padding hero podstránek */
+  --spacing-block: clamp(80px, 10vw, 150px); /* mezera mezi bloky v gridu */
+  --spacing-step: clamp(24px, 3vw, 64px); /* gap ve dvousloupci kroku */
+
+  /*Stíny*/
+  --shadow-cta: 0 14px 38px rgba(227, 11, 23, 0.4);
+  --shadow-panel: 0 18px 48px rgba(0, 0, 0, 0.5);
+
   /*Easing kánonu*/
   --ease-om: cubic-bezier(0.16, 0.84, 0.24, 1);
+
   /*Breakpoints*/
   --breakpoint-sphone: 361px;
   --breakpoint-phone: 401px;
@@ -52,6 +107,7 @@
   --breakpoint-sdesktop: 1401px;
   --breakpoint-desktop: 1537px;
   --breakpoint-xdesktop: 1761px;
+
   /*Widths*/
   --width-container: 90vw;
   --width-container: 90svw;
@@ -66,8 +122,8 @@ html {
   line-height: 1.6;
   letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
-  color: var(--color-ink);
-  background-color: var(--color-cream);
+  color: var(--color-bone);
+  background-color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overscroll-behavior: none;
@@ -92,7 +148,7 @@ body {
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-ink);
+  color: var(--color-white);
 }
 
 .img-responsive,
@@ -133,6 +189,15 @@ body {
   }
 }
 
+@keyframes omGrowY {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
 @keyframes omSlideX {
   from {
     transform: translate3d(0, 0, 0);
@@ -144,10 +209,57 @@ body {
 
 @keyframes omInk {
   from {
-    color: #cbbfb0;
+    color: #55534f;
   }
   to {
-    color: #1e1712;
+    color: #f2f0ed;
+  }
+}
+
+@keyframes omDrive {
+  from {
+    transform: translate3d(var(--om-drive-from, -14%), 0, 0);
+  }
+  to {
+    transform: translate3d(var(--om-drive-to, 0%), 0, 0);
+  }
+}
+
+@keyframes omRoll {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(var(--om-roll, 540deg));
+  }
+}
+
+@keyframes omDraw {
+  from {
+    stroke-dashoffset: var(--om-draw, 1);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes omNeedle {
+  from {
+    transform: rotate(var(--om-needle-from, -38deg));
+  }
+  to {
+    transform: rotate(var(--om-needle-to, 38deg));
+  }
+}
+
+@keyframes omSmoke {
+  from {
+    opacity: 0.5;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-18%, -12%, 0) scale(1.4);
   }
 }
 
@@ -213,27 +325,36 @@ body {
   }
 }
 
+@keyframes loadSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
 @layer components {
   p {
-    @apply text-body font-normal text-ink-80 text-left;
+    @apply text-body font-normal leading-[1.7] text-ash text-left;
   }
 
   h1 {
-    @apply text-display font-medium leading-[1.05] tracking-[-0.03em] text-ink text-left;
+    @apply text-display font-bold uppercase leading-display tracking-display text-bone text-left;
   }
 
   h2 {
-    @apply text-heading font-medium leading-[1.1] tracking-[-0.03em] text-ink text-left;
+    @apply text-heading font-bold uppercase leading-heading tracking-display text-bone text-left;
   }
 
   h3 {
-    @apply text-title font-medium leading-[1.15] tracking-[-0.02em] text-ink text-left;
+    @apply text-step font-bold uppercase leading-step tracking-step text-bone text-left;
   }
 
   h4,
   h5,
   h6 {
-    @apply text-sub font-medium leading-snug tracking-[-0.01em] text-ink text-left;
+    @apply text-note font-semibold uppercase leading-snug tracking-[-0.02em] text-bone text-left;
   }
 
   ul,
@@ -242,7 +363,7 @@ body {
   }
 
   li {
-    @apply text-body font-normal text-ink-80 m-0 p-0 list-none;
+    @apply text-body font-normal leading-[1.7] text-ash m-0 p-0 list-none;
   }
 
   figure {
@@ -262,23 +383,53 @@ body {
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.2em] text-accent;
+    @apply inline-flex items-center gap-3 text-eyebrow font-normal italic uppercase tracking-eyebrow text-accent-text;
   }
 
   .eyebrow::before {
     content: "";
     width: 30px;
     height: 1px;
-    background-color: currentColor;
+    background-color: var(--color-accent);
     flex: none;
   }
 
+  .eyebrow-short::before {
+    width: 22px;
+  }
+
+  .label {
+    @apply text-label font-normal uppercase tracking-label text-slate;
+  }
+
+  .index {
+    @apply text-label font-medium tracking-index text-graphite;
+  }
+
+  .stat-note {
+    @apply text-caption font-normal italic text-stone;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-pill border border-line-chip bg-ink-chip px-4 py-1.5 text-chip font-normal text-ash;
+  }
+
   .wordmark {
-    @apply font-semibold tracking-[-0.02em] text-ink lowercase;
+    @apply text-wordmark font-semibold lowercase tracking-wordmark text-bone;
   }
 
   .wordmark span {
-    @apply font-normal text-mokka;
+    @apply font-normal text-stone;
+  }
+
+  .overlay-hero {
+    @apply pointer-events-none absolute inset-0;
+    background-image: var(--overlay-hero);
+  }
+
+  .overlay-cta {
+    @apply pointer-events-none absolute inset-0;
+    background-image: var(--overlay-cta);
   }
 }
 
@@ -288,11 +439,16 @@ body {
       [data-reveal="y"] {
         animation: omReveal 0.9s var(--ease-om) both;
         animation-timeline: view();
-        animation-range: entry 8% cover 30%;
+        animation-range: entry 4% cover 26%;
       }
 
       [data-om-progress] > span {
         animation: omGrowX linear both;
+        animation-timeline: scroll(root block);
+      }
+
+      [data-om-rail] > span {
+        animation: omGrowY linear both;
         animation-timeline: scroll(root block);
       }
 
@@ -306,9 +462,14 @@ body {
         animation-range: contain 0% contain 100%;
       }
 
+      [data-om-statement] {
+        view-timeline-name: --stmt;
+      }
+
       [data-om-ink] {
         animation: omInk linear both;
-        animation-range: entry 20% cover 45%;
+        animation-timeline: --stmt;
+        animation-range: contain 2% contain 20%;
       }
     }
   }
@@ -317,14 +478,5 @@ body {
     width: max-content;
     overflow-x: hidden !important;
     scroll-snap-type: none !important;
-  }
-}
-
-@keyframes loadSweep {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(300%);
   }
 }

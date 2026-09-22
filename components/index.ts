@@ -1,9 +1,8 @@
 export { default as Button } from "./buttons/Button";
-export { default as Footer } from "./layout/Footer";
 export { default as LogoLoader } from "./layout/LogoLoader";
-export { default as Navbar } from "./layout/header/Navbar";
 export { default as PageWrapper } from "./layout/wrappers/PageWrapper";
 export { default as ScrollProgress } from "./layout/ScrollProgress";
+export { default as ScrollRails } from "./layout/ScrollRails";
 export { default as Section } from "./layout/Section";
 export { default as Wordmark } from "./layout/Wordmark";
 export { default as CookieBanner } from "./overlays/CookieBanner";

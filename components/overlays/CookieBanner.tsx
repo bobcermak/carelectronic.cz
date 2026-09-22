@@ -42,7 +42,7 @@ const CookieBanner: FC = () => {
       }`}
     >
       <div
-        className={`relative w-full max-w-[26rem] overflow-hidden rounded-block border border-line bg-white shadow-panel ${
+        className={`relative w-full max-w-[26rem] overflow-hidden rounded-block border border-line bg-ink-soft shadow-panel ${
           leaving
             ? "motion-safe:animate-[floatDown_0.26s_cubic-bezier(.4,0,.9,.3)_both]"
             : "motion-safe:animate-[floatUp_0.45s_var(--ease-om)_both]"
@@ -51,18 +51,18 @@ const CookieBanner: FC = () => {
         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-accent"/>
         <div className="p-7 pt-8 xphone:p-9 xphone:pt-10">
           <p className="eyebrow mb-5">Souhlas</p>
-          <h2 id="cookie-title" className="mb-3 text-title">
+          <h2 id="cookie-title" className="mb-3 text-step">
             {CONSENT_TEXTS.title}
           </h2>
-          <p className="mb-2.5 text-ui text-ink-80">{CONSENT_TEXTS.lead}</p>
-          <p className="mb-7 text-ui text-mokka">{CONSENT_TEXTS.detail}</p>
+          <p className="mb-2.5 text-chip text-ash">{CONSENT_TEXTS.lead}</p>
+          <p className="mb-7 text-chip text-stone">{CONSENT_TEXTS.detail}</p>
           <div className="flex flex-col gap-2.5">
             <Button type="button" onClick={close(accept)} wFull isArrow={false} ariaLabel={CONSENT_TEXTS.accept}>
               {CONSENT_TEXTS.accept}
             </Button>
             <Button
               type="button"
-              variant="secondary"
+              variant="outline"
               onClick={close(reject)}
               wFull
               isArrow={false}
@@ -71,10 +71,10 @@ const CookieBanner: FC = () => {
               {CONSENT_TEXTS.reject}
             </Button>
           </div>
-          <p className="mt-5 text-center text-ui text-mokka">
+          <p className="mt-5 text-center text-chip text-stone">
             <Link
               href="/cookies"
-              className="font-medium underline underline-offset-[3px] transition-colors duration-200 ease-om hover:text-ink"
+              className="font-medium underline underline-offset-[3px] transition-colors duration-200 ease-om hover:text-bone"
             >
               {CONSENT_TEXTS.more}
             </Link>

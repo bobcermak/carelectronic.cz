@@ -4,7 +4,6 @@ export const BUSINESS_LEGAL_NAME = "Viktor Šeda";
 export const BUSINESS_FOUNDED = 2003;
 export const BUSINESS_ICO = "72583843";
 export const BUSINESS_ICO_DISPLAY = "725 838 43";
-
 export type PostalAddress = {
   street: string;
   city: string;
@@ -31,8 +30,6 @@ export const BUSINESS_PHONE = "+420 603 513 643";
 export const BUSINESS_PHONE_HREF = `tel:${BUSINESS_PHONE.replace(/\s/g, "")}`;
 export const BUSINESS_EMAIL = "info@carelectronic.cz";
 export const BUSINESS_EMAIL_HREF = `mailto:${BUSINESS_EMAIL}`;
-export const DPF_NAME = "DPF Renovace";
-export const DPF_URL = "https://dpfrenovace.cz";
 export const FACEBOOK_URL = "";
 export type OpeningDay = {
   day: number;

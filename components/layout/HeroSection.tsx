@@ -36,7 +36,7 @@ const HeroSection: FC = () => (
           <Button href={`/kontakt#${CONTACT_SECTION_ID}`} ariaLabel="Poptat úpravu vozu">
             poptat vůz
           </Button>
-          <Button href="/mereni" variant="secondary" isArrow={false} ariaLabel="Jak měříme na dynu">
+          <Button href="/mereni" variant="outline" isArrow={false} ariaLabel="Jak měříme na dynu">
             jak měříme
           </Button>
         </div>
