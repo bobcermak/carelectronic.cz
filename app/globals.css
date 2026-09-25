@@ -11,9 +11,10 @@
   --text-eyebrow: 0.75rem; /* 12px — eyebrow */
   --text-chip: 0.8125rem; /* 13px — pilulky a chipy */
   --text-caption: 0.84375rem; /* 13.5px — popisek statu, italic */
-  --text-nav: 1rem; /* 16px — navigační odkazy */
+  --text-nav: 1.0625rem; /* 17px — navigační odkazy a CTA (změřeno z návrhu headeru, soupis uvádí 16px) */
   --text-note: 1.0625rem; /* 17px — kratší odstavec */
   --text-wordmark: 1.125rem; /* 18px — wordmark v navigaci */
+  --text-logo: 1.1875rem; /* 19px — wordmark v logu navigace (změřeno z návrhu headeru) */
   --text-body: clamp(1.0625rem, 1.3vw, 1.25rem); /* 17 → 20px — perex a body */
   --text-body-step: clamp(0.875rem, 1.9vh, 1.125rem); /* 14 → 18px — body v kroku */
   --text-statement: clamp(1.5rem, 3.2vw, 2.875rem); /* 24 → 46px — omInk statement */
@@ -22,6 +23,8 @@
   --text-figure: clamp(2.75rem, 4.8vw, 4.125rem); /* 44 → 66px — stat číslo */
   --text-heading: clamp(2rem, 6.4vw, 4rem); /* → 64px — H2 sekce */
   --text-display: clamp(2.5rem, 9vw, 5.5rem); /* → 88px — H1 a H2 v CTA bloku */
+  --text-hero: clamp(2.25rem, 6.4vw, 4.5rem); /* 36 → 72px — H1 homepage hero */
+  --text-stat: 1.375rem; /* 22px — hodnota v pásu statů pod hero */
   --text-ghost: clamp(6rem, 17vh, 17.5rem); /* 96 → 280px — číslo v pozadí kroku */
 
   /*Letter-spacing*/
@@ -73,6 +76,7 @@
 
   /*Ztmavovací překryvy fotek — jen černé gradienty, žádné barevné*/
   --overlay-hero: linear-gradient(176deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.66) 45%, rgba(0, 0, 0, 0.96));
+  --overlay-home: linear-gradient(176deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.5) 42%, rgba(0, 0, 0, 0.94));
   --overlay-cta: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.55) 50%, rgba(0, 0, 0, 0.78));
 
   /*Radius*/
@@ -303,17 +307,6 @@ body {
   }
 }
 
-@keyframes navDrop {
-  from {
-    opacity: 0;
-    transform: translateY(-18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes menuIn {
   from {
     opacity: 0;
@@ -322,6 +315,70 @@ body {
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+/*Úvod hero: červená linka se natáhne středem (jako záznam z dyna), rám se z ní rozevře,
+  video dojede ze zoomu a obsah zaostří naráz jako jeden celek*/
+@keyframes omHeroScan {
+  0% {
+    opacity: 1;
+    transform: scaleX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes omHeroOpen {
+  from {
+    clip-path: inset(calc(50% - 1px) 0 calc(50% - 1px) 0 round 15px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 15px);
+  }
+}
+
+@keyframes omHeroMedia {
+  from {
+    transform: scale(1.18);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes omHeroFocus {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+/*Klidový stav scroll indikátoru — tečka pořád sjíždí kolečkem myši dolů*/
+@keyframes omCueIdle {
+  0% {
+    opacity: 0;
+    transform: translateY(-11px);
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(11px);
   }
 }
 
@@ -427,6 +484,11 @@ body {
     background-image: var(--overlay-hero);
   }
 
+  .overlay-home {
+    @apply pointer-events-none absolute inset-0;
+    background-image: var(--overlay-home);
+  }
+
   .overlay-cta {
     @apply pointer-events-none absolute inset-0;
     background-image: var(--overlay-cta);
@@ -434,17 +496,35 @@ body {
 }
 
 @layer utilities {
+  .hero-scan {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-open {
+      animation: omHeroOpen 1.1s var(--ease-om) 0.45s both;
+    }
+
+    .hero-scan {
+      transform-origin: center;
+      animation: omHeroScan 0.95s var(--ease-om) both;
+    }
+
+    .hero-media {
+      animation: omHeroMedia 2.2s var(--ease-om) 0.45s both;
+    }
+
+    .hero-focus {
+      animation: omHeroFocus 1s var(--ease-om) 0.95s both;
+    }
+  }
+
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       [data-reveal="y"] {
         animation: omReveal 0.9s var(--ease-om) both;
         animation-timeline: view();
         animation-range: entry 4% cover 26%;
-      }
-
-      [data-om-progress] > span {
-        animation: omGrowX linear both;
-        animation-timeline: scroll(root block);
       }
 
       [data-om-rail] > span {

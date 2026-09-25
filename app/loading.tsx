@@ -1,4 +1,2 @@
-import LogoLoader from "@/components/layout/LogoLoader";
-
-const Loading = () => <LogoLoader className="min-h-dvh"/>;
+const Loading = () => <div aria-busy="true" className="min-h-dvh bg-ink"/>;
 export default Loading;

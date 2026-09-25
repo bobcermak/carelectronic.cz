@@ -1,4 +1,4 @@
-import { PageWrapper, ScrollProgress, ScrollRails } from "@/components";
+import { Navbar, PageWrapper, ScrollProgress } from "@/components";
 import { Montserrat } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 import ConsentProvider from "@/contexts/ConsentContext";
@@ -40,6 +40,13 @@ export const metadata: Metadata = {
   creator: SITE_NAME,
   publisher: SITE_NAME,
   alternates: { canonical: "/" },
+  icons: {
+    icon: [
+      { url: "/images/assets/favicon-32x32.png?v=2", sizes: "32x32", type: "image/png" },
+      { url: "/images/assets/favicon-16x16.png?v=2", sizes: "16x16", type: "image/png" },
+    ],
+    apple: { url: "/images/assets/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+  },
   robots: {
     index: true,
     follow: true,
@@ -80,7 +87,7 @@ export default function RootLayout({
       <body className="font-montserrat">
         <ConsentProvider>
           <ScrollProgress/>
-          <ScrollRails/>
+          <Navbar/>
           <PageWrapper>
             <main>{children}</main>
           </PageWrapper>

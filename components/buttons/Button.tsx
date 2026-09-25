@@ -6,8 +6,10 @@ import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
 
 type ButtonVariant = "primary" | "outline";
+type ButtonSize = "md" | "lg";
 type ButtonSharedProps = {
   variant?: ButtonVariant;
+  size?: ButtonSize;
   isArrow?: boolean;
   ariaLabel: string;
   className?: string;
@@ -30,8 +32,35 @@ type NativeButtonProps = ButtonSharedProps & {
 type ButtonProps = LinkButtonProps | NativeButtonProps;
 const EXTERNAL_HREF = /^https?:\/\//i;
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
-  primary: "gap-4.5 bg-accent py-2.25 pl-7.5 pr-2.25 text-white shadow-cta hover:bg-accent-text",
-  outline: "gap-4 border border-line-strong px-7.5 py-4.5 text-bone hover:border-bone",
+  primary: "relative isolate bg-accent text-white shadow-cta group-hover:text-accent group-active:text-accent group-focus-visible:text-accent",
+  outline: "relative border border-line-strong text-bone",
+};
+const SIZE_STYLES: Record<ButtonVariant, Record<ButtonSize, string>> = {
+  primary: {
+    md: "gap-3.75 py-2 pl-6.5 pr-2",
+    lg: "gap-4.5 py-2.25 pl-7.5 pr-2.25",
+  },
+  outline: {
+    md: "h-13 gap-3.75 px-6.5",
+    lg: "h-15.5 gap-4 px-7.5",
+  },
+};
+const ARROW_SIZES: Record<ButtonSize, number> = {
+  md: 18,
+  lg: 20,
+};
+const CIRCLE_SIZES: Record<ButtonSize, string> = {
+  md: "size-9",
+  lg: "size-11",
+};
+const FILL_STYLES: Record<ButtonSize, string> = {
+  md: "[clip-path:inset(8px_8px_8px_calc(100%-44px)_round_999px)]",
+  lg: "[clip-path:inset(9px_9px_9px_calc(100%-53px)_round_999px)]",
+};
+//Poloměr obtahu = polovina výšky outline pilulky (52 / 62px) minus půl tloušťky čáry
+const TRACE_RADIUS: Record<ButtonSize, number> = {
+  md: 25.5,
+  lg: 30.5,
 };
 const CIRCLE_STYLES: Record<ButtonVariant, string> = {
   primary: "bg-white text-accent",
@@ -40,6 +69,7 @@ const CIRCLE_STYLES: Record<ButtonVariant, string> = {
 const Button: FC<ButtonProps> = (props) => {
   const {
     variant = "primary",
+    size = "md",
     isArrow = true,
     ariaLabel,
     className,
@@ -51,7 +81,7 @@ const Button: FC<ButtonProps> = (props) => {
   } = props;
   const showArrow = isArrow && !noStyle;
   const wrapperClass = twMerge(
-    noStyle ? "cursor-pointer" : "group inline-flex cursor-pointer",
+    noStyle ? "cursor-pointer" : "group inline-flex cursor-pointer rounded-pill outline-none",
     !noStyle && (wFull ? "w-full" : "w-fit"),
     disabled ? "pointer-events-none cursor-not-allowed opacity-40" : "",
     hover,
@@ -59,24 +89,63 @@ const Button: FC<ButtonProps> = (props) => {
   );
   const pillClass = twMerge(
     "inline-flex items-center justify-center rounded-pill text-nav font-medium lowercase",
-    "transition-[background-color,color,border-color] duration-200 ease-om",
+    "transition-[color,border-color] duration-400 ease-om",
+    "group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-accent-text",
     VARIANT_STYLES[variant],
+    SIZE_STYLES[variant][size],
     wFull ? "w-full" : ""
   );
   const circleClass = twMerge(
-    "grid size-11 shrink-0 place-items-center rounded-pill",
-    "transition-[translate] duration-200 ease-om",
-    "group-hover:-translate-x-0.5 group-active:-translate-x-0.5",
+    "grid shrink-0 place-items-center rounded-pill",
+    CIRCLE_SIZES[size],
     CIRCLE_STYLES[variant]
   );
   const content = noStyle ? (
     children
   ) : (
     <span className={pillClass}>
+      {variant === "primary" && (
+        <span
+          aria-hidden="true"
+          className={twMerge(
+            "absolute inset-0 -z-10 rounded-pill bg-white transition-[clip-path] duration-500 ease-om",
+            "group-hover:[clip-path:inset(0_round_999px)] group-active:[clip-path:inset(0_round_999px)] group-focus-visible:[clip-path:inset(0_round_999px)]",
+            "motion-reduce:transition-none",
+            FILL_STYLES[size]
+          )}
+        />
+      )}
+      {variant === "outline" && (
+        <svg
+          aria-hidden="true"
+          fill="none"
+          className="pointer-events-none absolute -top-px -left-px h-[calc(100%+2px)] w-[calc(100%+2px)] overflow-visible"
+        >
+          <rect
+            x="0.5"
+            y="0.5"
+            rx={TRACE_RADIUS[size]}
+            pathLength={1}
+            strokeWidth="1"
+            className={twMerge(
+              "h-[calc(100%-1px)] w-[calc(100%-1px)] stroke-accent [stroke-dasharray:1] [stroke-dashoffset:1]",
+              "transition-[stroke-dashoffset] duration-400 ease-om",
+              "group-hover:[stroke-dashoffset:0] group-hover:duration-900 group-hover:ease-[cubic-bezier(.65,0,.35,1)]",
+              "group-active:[stroke-dashoffset:0] group-active:duration-900",
+              "group-focus-visible:[stroke-dashoffset:0] group-focus-visible:duration-900",
+              "motion-reduce:transition-none"
+            )}
+          />
+        </svg>
+      )}
       <span className={wFull ? "flex-1 text-center" : ""}>{children}</span>
       {showArrow && (
         <span aria-hidden="true" className={circleClass}>
-          <ArrowUpRightIcon size={17} weight="light"/>
+          <ArrowUpRightIcon
+            size={ARROW_SIZES[size]}
+            weight="regular"
+            className="transition-[rotate] duration-500 ease-om group-hover:rotate-45 group-active:rotate-45 group-focus-visible:rotate-45"
+          />
         </span>
       )}
     </span>
