@@ -45,6 +45,10 @@ const SIZE_STYLES: Record<ButtonVariant, Record<ButtonSize, string>> = {
     lg: "h-15.5 gap-4 px-7.5",
   },
 };
+const SIZE_BARE: Record<ButtonSize, string> = {
+  md: "h-13 px-6.5",
+  lg: "h-15.5 px-7.5",
+};
 const ARROW_SIZES: Record<ButtonSize, number> = {
   md: 18,
   lg: 20,
@@ -57,7 +61,7 @@ const FILL_STYLES: Record<ButtonSize, string> = {
   md: "[clip-path:inset(8px_8px_8px_calc(100%-44px)_round_999px)]",
   lg: "[clip-path:inset(9px_9px_9px_calc(100%-53px)_round_999px)]",
 };
-//Poloměr obtahu = polovina výšky outline pilulky (52 / 62px) minus půl tloušťky čáry
+const FILL_BARE = "[clip-path:inset(0_0_0_100%_round_999px)]";
 const TRACE_RADIUS: Record<ButtonSize, number> = {
   md: 25.5,
   lg: 30.5,
@@ -92,7 +96,7 @@ const Button: FC<ButtonProps> = (props) => {
     "transition-[color,border-color] duration-400 ease-om",
     "group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-accent-text",
     VARIANT_STYLES[variant],
-    SIZE_STYLES[variant][size],
+    variant === "primary" && !showArrow ? SIZE_BARE[size] : SIZE_STYLES[variant][size],
     wFull ? "w-full" : ""
   );
   const circleClass = twMerge(
@@ -111,7 +115,7 @@ const Button: FC<ButtonProps> = (props) => {
             "absolute inset-0 -z-10 rounded-pill bg-white transition-[clip-path] duration-500 ease-om",
             "group-hover:[clip-path:inset(0_round_999px)] group-active:[clip-path:inset(0_round_999px)] group-focus-visible:[clip-path:inset(0_round_999px)]",
             "motion-reduce:transition-none",
-            FILL_STYLES[size]
+            showArrow ? FILL_STYLES[size] : FILL_BARE
           )}
         />
       )}
@@ -138,7 +142,7 @@ const Button: FC<ButtonProps> = (props) => {
           />
         </svg>
       )}
-      <span className={wFull ? "flex-1 text-center" : ""}>{children}</span>
+      <span className={wFull ? (showArrow ? "flex-1 text-left" : "flex-1 text-center") : ""}>{children}</span>
       {showArrow && (
         <span aria-hidden="true" className={circleClass}>
           <ArrowUpRightIcon

@@ -439,20 +439,9 @@ body {
     overflow-wrap: break-word;
   }
 
+  /*Bez linky před textem — eyebrow je jen popisek, čárka nad nadpisem tam nepatří*/
   .eyebrow {
-    @apply inline-flex items-center gap-3 text-eyebrow font-normal italic uppercase tracking-eyebrow text-accent-text;
-  }
-
-  .eyebrow::before {
-    content: "";
-    width: 30px;
-    height: 1px;
-    background-color: var(--color-accent);
-    flex: none;
-  }
-
-  .eyebrow-short::before {
-    width: 22px;
+    @apply inline-flex items-center text-eyebrow font-normal italic uppercase tracking-eyebrow text-accent-text;
   }
 
   .label {

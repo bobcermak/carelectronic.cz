@@ -1,4 +1,4 @@
-import { Navbar, PageWrapper, ScrollProgress } from "@/components";
+import { Navbar, PageWrapper, ScrollProgress, SmoothScroll } from "@/components";
 import { Montserrat } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 import ConsentProvider from "@/contexts/ConsentContext";
@@ -86,6 +86,7 @@ export default function RootLayout({
       </head>
       <body className="font-montserrat">
         <ConsentProvider>
+          <SmoothScroll/>
           <ScrollProgress/>
           <Navbar/>
           <PageWrapper>

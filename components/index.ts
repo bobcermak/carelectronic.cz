@@ -4,6 +4,7 @@ export { default as Hero } from "./sections/home/hero/Hero";
 export { default as HeroStats } from "./sections/home/hero/HeroStats";
 export { default as PageWrapper } from "./layout/wrappers/PageWrapper";
 export { default as ScrollProgress } from "./layout/ScrollProgress";
+export { default as SmoothScroll } from "./layout/SmoothScroll";
 export { default as CookieBanner } from "./overlays/CookieBanner";
 export { default as FormErrorModal } from "./overlays/FormErrorModal";
 export { default as FormSuccessModal } from "./overlays/FormSuccessModal";

@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 const TRAVEL = 56;
+const FADE_END = "+=34%";
 const ScrollCue: FC = () => {
   //Hooks
   const cueRef = useRef<HTMLDivElement>(null);
@@ -22,8 +23,8 @@ const ScrollCue: FC = () => {
         scrollTrigger: {
           trigger: cue?.closest("section"),
           start: "top top",
-          end: "bottom 15%",
-          scrub: 0.8,
+          end: FADE_END,
+          scrub: 0.6,
         },
       });
     });
