@@ -1,7 +1,6 @@
-import type { FC } from "react";
 import { HERO_PARTNER, HERO_STATS } from "./heroContent";
 
-const HeroStats: FC = () => (
+const HeroStats = () => (
   <section aria-label="CarElectronic v číslech" className="mx-auto w-container py-10 laptop:py-14">
     <div className="flex flex-wrap items-baseline justify-center gap-x-10 gap-y-6 tablet:gap-x-16">
       <ul className="contents">

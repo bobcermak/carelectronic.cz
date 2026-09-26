@@ -1,6 +1,8 @@
 import type { FC } from "react";
 
-const RAIL = "pointer-events-none fixed inset-y-2 z-60 w-0.75 overflow-hidden rounded-pill bg-line-track";
+/*Svislé lišty v okrajích — levá roste shora, pravá zdola. Bez tracku na pozadí
+  a od hrany k hraně viewportu; zaoblený zůstává jen rostoucí konec výplně.*/
+const RAIL = "pointer-events-none fixed inset-y-0 z-60 w-0.75";
 const FILL = "absolute inset-x-0 block h-0 rounded-pill bg-accent";
 const ScrollProgress: FC = () => (
   <>

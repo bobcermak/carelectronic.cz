@@ -1,5 +1,3 @@
-import { CONTACT_SECTION_ID } from "@/types/contact";
-
 export type HeroStat = {
   value: string;
   label: string;
@@ -12,8 +10,8 @@ export const HERO_EYEBROW = "Chiptuning a autoelektronika · Liberec";
 export const HERO_TITLE = "Výkon, který jsme vám";
 export const HERO_TITLE_ACCENT = "naměřili.";
 export const HERO_ACTIONS = {
-  primary: { href: `/#${CONTACT_SECTION_ID}`, label: "nezávazná poptávka" },
-  secondary: { href: "/konfigurator", label: "spočítat zisk výkonu" },
+  primary: { href: `/konfigurator`, label: "nezávazná poptávka" },
+  secondary: { href: "#", label: "jak to funguje" },
 };
 export const HERO_STATS: HeroStat[] = [
   { value: "2003", label: "na trhu" },

@@ -4,8 +4,6 @@ const HomePage = () => (
   <>
     <Hero/>
     <HeroStats/>
-    <div className="h-[1000px]">
-    </div>
   </>
 );
 export default HomePage;
